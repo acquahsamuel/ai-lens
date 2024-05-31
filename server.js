@@ -7,7 +7,6 @@ const ejs = require("ejs");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
@@ -37,8 +36,6 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-
-
 // File uploading
 app.use(fileupload());
 
@@ -64,15 +61,8 @@ app.use(hpp());
 // Enable CORS
 app.use(cors());
 
-// Enable ejs as view engine
-app.set("view engine", "ejs");
-app.set("views", "views");
-
-// Set static folder
-app.use(express.static(path.join(__dirname, "public")));
-
+ 
 // Mount routers
-
 
 
 
