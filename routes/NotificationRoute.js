@@ -5,8 +5,5 @@ const router = express.Router();
 
 
  
-// router.route("/").post(generateSEODescription)
-
-
 
 module.exports = router;

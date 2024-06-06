@@ -40,7 +40,6 @@ const InteractionSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-
   updatedAt: {
     type: Date,
     default: Date.now,

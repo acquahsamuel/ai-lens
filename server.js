@@ -39,7 +39,6 @@ const auth = require("./routes/Auth");
 
 
 const user = require("./routes/UserRoute");
-const history = require("./routes/HistoryRoute");
 const prompt = require("./routes/InteractionRoute");
 const notification = require("./routes/NotificationRoute");
 
@@ -93,7 +92,6 @@ app.use("/api/v1/auth", auth);
 
 
 app.use("/api/v1/prompt", prompt);
-app.use("/api/v1/history", history);
 
 
 // app.use(errorHandler);

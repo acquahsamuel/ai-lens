@@ -28,7 +28,6 @@ exports.initiatePrompt = asyncHandler(async (req, res, next) => {
             model: modelTypeInit,
         });
 
-        
         await interaction.save();
         res.status(200).json({
             success: true,
@@ -49,13 +48,11 @@ exports.initiatePrompt = asyncHandler(async (req, res, next) => {
 
 // @route     GET /api/v1/update-interaction 
 exports.updateInteraction = asyncHandler(async (req, res, next) => {
-
     const modelTypeInit = req.query.model || "gemini-1.5-flash";
-    const userId = req.user._id;
+    // const userId = req.user._id;
 
     const message = req.body.prompt;
-    const queryId = req.query.id;
-
+    // const queryId = req.query.id;
     // console.log(queryId, message, req.user);
   
     const model = genAI.getGenerativeModel({ model: modelTypeInit });
@@ -65,9 +62,7 @@ exports.updateInteraction = asyncHandler(async (req, res, next) => {
     const text = await response.text();
   
     try {
-      
       let interaction = await Interaction.findOne({ userId: req.user._id, model: modelTypeInit });
-  
       if (interaction) {
         interaction.prompts.push({ prompt: message, response: text });
      
@@ -86,7 +81,7 @@ exports.updateInteraction = asyncHandler(async (req, res, next) => {
   
       res.status(200).json({
         success: true,
-        data: text,
+        data: interaction,
       });
 
     } catch (err) {
@@ -100,3 +95,13 @@ exports.updateInteraction = asyncHandler(async (req, res, next) => {
   });
  
 
+
+  // @desc      Generate SEO post description
+// @route     GET /api/v1/seo-description
+exports.getAllInteraction = asyncHandler(async (req, res, next) => {
+    const interaction = await Interaction.find().lean();
+    res.status(200).json({
+        success: true,
+        data: interaction
+      });
+});
