@@ -16,12 +16,15 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 
 // Load env vars
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: ".env" });
 
 // Connect to database
 connectDB();
 
 // Route files in
+
+require('./auth-strategy/google-passport')(passport)
+
 
 const app = express();
 
@@ -63,10 +66,20 @@ app.use(cors());
 
  
 // Mount routers
+// Mount routers social logins
+app.use("/auth/google", oauth);
 
 
 
 // app.use(errorHandler);
+
+
+app.get('/', async (req, res) => {
+  res.json({ 
+   message : "Gemini and Open powered blog. GPX", 
+   status : res.statusCode 
+ })
+});
 
 const PORT = process.env.PORT || 5000;
 
