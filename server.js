@@ -86,12 +86,14 @@ app.use(hpp());
 app.use(cors());
 
  
+
 // Mount routers social logins
 app.use("/auth/google", oauth);
-app.use("/api/v1/prompt", prompt);
-// app.use("/api/v1/user", auth);
+
 
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/prompt", prompt);
+app.use("/api/v1/history", history);
 
 
 // app.use(errorHandler);

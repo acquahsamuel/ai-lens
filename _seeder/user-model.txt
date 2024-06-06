@@ -1,0 +1,47 @@
+[
+    {
+ 
+  "role": "user",
+  "isActive": true,
+  "accountType": "basic",
+  "interests": [],
+  "bookmarks": [],
+  "businessConfigured": false,
+  "phoneActivated": false,
+  "userVerifiedById": false,
+  "email": "iamusertese01@gmail.com",
+  "password": "$2a$10$ssncTggZn7R9jGpuSh9MA.TaW6sVRu7t2wJGlgByAtwu2Tjam858i",
+  "activationToken": "68d9ece67c7d08aca81cd1dbe559251b2bccb0811a9ec17e7b47da439f20632b",
+  "referralCode": "87670"
+}, 
+ {
+ 
+  "role": "user",
+  "isActive": true,
+  "accountType": "basic",
+  "interests": [],
+  "bookmarks": [],
+  "businessConfigured": false,
+  "phoneActivated": false,
+  "userVerifiedById": false,
+  "email": "iamusertese01@gmail.com",
+  "password": "$2a$10$ssncTggZn7R9jGpuSh9MA.TaW6sVRu7t2wJGlgByAtwu2Tjam858i",
+  "activationToken": "68d9ece67c7d08aca81cd1dbe559251b2bccb0811a9ec17e7b47da439f20632b",
+  "referralCode": "87670"
+},
+ {
+  
+  "role": "user",
+  "isActive": true,
+  "accountType": "basic",
+  "interests": [],
+  "bookmarks": [],
+  "businessConfigured": false,
+  "phoneActivated": false,
+  "userVerifiedById": false,
+  "email": "iamusertese01@gmail.com",
+  "password": "$2a$10$ssncTggZn7R9jGpuSh9MA.TaW6sVRu7t2wJGlgByAtwu2Tjam858i",
+  "activationToken": "68d9ece67c7d08aca81cd1dbe559251b2bccb0811a9ec17e7b47da439f20632b",
+  "referralCode": "87670"
+}
+]

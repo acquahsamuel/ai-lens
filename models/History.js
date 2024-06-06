@@ -10,7 +10,6 @@ const HistorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  
   response: {
     type: String,
     required: true
@@ -28,6 +27,7 @@ const HistorySchema = new mongoose.Schema({
     default: Date.now
   }
 });
+
 
 // Add a pre-save hook to update the `updatedAt` field
 HistorySchema.pre('save', function(next) {
