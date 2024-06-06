@@ -29,38 +29,7 @@ Other things to include:
 Read all package.json file for all installed npm packages
 update package version to current state
 
-## Configuration
-
-You can create a structured pattern below. Using MVC pattern
-
-<!-- <img src="public/images/pattern.png" width="350" height="400" title="hover text"> -->
-![readme-pattern](public/images/pattern.png)
-
-#### How to test the software
-``
-npm start
-``
-
-
-<!-- ## Known issues -->
-<!-- Document any known significant shortcomings with the software. -->
-
-## Getting help
-Kindly reach out to me @acquahsamuel@gmail.com
-
-
-## Getting involved
-General instructions on _how_ to contribute should be stated with a link to [CONTRIBUTING](CONTRIBUTING.md).
-
----
-
-## Open source licensing info
-
-1. [TERMS](TERMS.md)
-2. [LICENSE](LICENSE)
-
----
-
+ 
 ## Credits and references
 
 1. Projects that inspired you
