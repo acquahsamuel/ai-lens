@@ -15,7 +15,6 @@ const passport = require('passport');
 const cors = require("cors");
 const connectDB = require("./config/db");
 const app = express();
- 
 
 
 // Dev logging middleware
@@ -37,6 +36,16 @@ require('./auth-strategy/google-passport')(passport)
 
 //Google Auth Stragies
 const oauth = require("./routes/Auth-Strategies");
+
+
+
+const user = require("./routes/UserRoute");
+const history = require("./routes/HistoryRoute");
+const notification = require("./routes/NotificationRoute");
+const prompt = require("./routes/PromptRoute");
+ 
+
+
 
 
 // Body parser
@@ -76,9 +85,11 @@ app.use(hpp());
 app.use(cors());
 
  
-// Mount routers
+ 
 // Mount routers social logins
 app.use("/auth/google", oauth);
+app.use("/api/v1/prompt", prompt);
+
 
 
 
