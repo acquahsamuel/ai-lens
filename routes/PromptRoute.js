@@ -5,16 +5,7 @@ const { generateSEODescription } = require("../controllers/PromptController")
 const router = express.Router();
 
 
-/**
- * Inviting users
- */
-// router.route("/users-invited")
-//   .get(protect, authorize("user", "admin", "superadmin"), invite);
-
-
-// router.route("/invite-by-email")
-//   .post(protect, authorize("user", "admin", "superadmin"), inviteByEmail);
-
+ 
 router.route("/gemini").post(generateSEODescription)
 
 

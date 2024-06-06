@@ -11,34 +11,31 @@ const deviceDetector = require('node-device-detector');
 // @route     POST /api/v1/auth/register
 // @access    Public
 exports.register = asyncHandler(async (req, res, next) => {
-  let { name, email, password, role, mobile, referredBy } = req.body;
+  let {   email, password } = req.body;
 
-  email = email.toLowerCase();
-  name =  name.toLowerCase();
+//   email = email.toLowerCase();
+//   name =  name.toLowerCase();
 
   const userExmail = await User.findOne({ email });
-  const userByMobile = await User.findOne({ mobile });
+//   const userByMobile = await User.findOne({ mobile });
 
 
   if (userExmail) {
     return next(new ErrorResponse('User with this email already exist', 400));
   }
 
-  if (userByMobile) {
-    return next(new ErrorResponse('User with this mobile number already exists', 400));
-  }
+//   if (userByMobile) {
+//     return next(new ErrorResponse('User with this mobile number already exists', 400));
+//   }
 
   const activationToken = generateRandomToken();
 
   // Create user
   const user = await User.create({
-    name,
+
     email,
     password,
-    mobile,
-    referredBy,
     activationToken,
-    role
   });
 
   await user.save({ validateBeforeSave: false });

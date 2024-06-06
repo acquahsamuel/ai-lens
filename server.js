@@ -36,7 +36,7 @@ require('./auth-strategy/google-passport')(passport)
 
 //Google Auth Stragies
 const oauth = require("./routes/Auth-Strategies");
-
+const auth = require("./routes/Auth");
 
 
 const user = require("./routes/UserRoute");
@@ -90,7 +90,7 @@ app.use(cors());
 app.use("/auth/google", oauth);
 app.use("/api/v1/prompt", prompt);
 
-
+app.use("/api/v1/auth", auth);
 
 
 // app.use(errorHandler);

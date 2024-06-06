@@ -123,32 +123,13 @@ const UserSchema = new mongoose.Schema({
   },
 
 
-  following: [
-    {
-       type: Schema.Types.ObjectId, 
-       ref: "User" 
-    }
-  ],
-
-  followers: [
-      { 
-       type: Schema.Types.ObjectId,
-       ref: "User" 
-      }
-  ],
-
+ 
   bookmarks: [{
      type: Schema.Types.ObjectId,
       ref: "Bookmark" 
   }],
 
   
-  businessId: { 
-    type: Schema.Types.ObjectId,
-     ref: "Business" 
-  },
-
-
   password: {
     type: String,
     select: false,
@@ -171,12 +152,6 @@ const UserSchema = new mongoose.Schema({
   userVerifiedById :{
     type: Boolean,
     default: false
-  },
-
-  idType: {
-    type: String,
-    enum: ["Ghana Card", "Passport", "Drivers", "Voters ID"],
-    default : "Ghana Card",
   },
 
   
@@ -229,30 +204,31 @@ UserSchema.post("save", async function (next) {
 
 
  
-UserSchema.pre("save", async function (next) {
-  if (this.isModified("name") || !this.userSubdomain) {
-    let subdomain = this.name.replace(/\s+/g, "-").toLowerCase();
-    subdomain = `${subdomain}-${generateRandomString(9)}`;
-    let count = 1;
-    while (await this.constructor.findOne({ userSubdomain: subdomain })) {
-      subdomain = `${this.name.replace(/\s+/g, "-").toLowerCase()}-${count}`;
-      count++;
-    }
-    this.userSubdomain = subdomain;
-    this.trendaSubdomain =  `${process.env.FRONTEND_URL}/@${subdomain}`;
-  }
-  next();
-});
+// UserSchema.pre("save", async function (next) {
+//   if (this.isModified("name") || !this.userSubdomain) {
+//     let subdomain = this.name.replace(/\s+/g, "-").toLowerCase();
+//     subdomain = `${subdomain}-${generateRandomString(9)}`;
+//     let count = 1;
+//     while (await this.constructor.findOne({ userSubdomain: subdomain })) {
+//       subdomain = `${this.name.replace(/\s+/g, "-").toLowerCase()}-${count}`;
+//       count++;
+//     }
+//     this.userSubdomain = subdomain;
+//     this.trendaSubdomain =  `${process.env.FRONTEND_URL}/@${subdomain}`;
+//   }
+//   next();
+// });
 
 
 
 
 //Generate referal link
-UserSchema.pre("save", function (next) {
-  const linkPart = [this.name, this.referralCode].filter(Boolean).join("-");
-  this.referralURL = linkPart.toLowerCase().replace(/\s+/g, "-");
-  next();
-});
+
+// UserSchema.pre("save", function (next) {
+//   const linkPart = [this.name, this.referralCode].filter(Boolean).join("-");
+//   this.referralURL = linkPart.toLowerCase().replace(/\s+/g, "-");
+//   next();
+// });
 
 
 
