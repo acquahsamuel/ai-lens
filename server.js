@@ -11,22 +11,33 @@ const helmet = require("helmet");
 const xss = require("xss-clean");
 const rateLimit = require("express-rate-limit");
 const hpp = require("hpp");
-
+const passport = require('passport');
 const cors = require("cors");
 const connectDB = require("./config/db");
+const app = express();
+ 
 
-// Load env vars
-dotenv.config({ path: ".env" });
+
+// Dev logging middleware
+if (process.env.NODE_ENV === 'production') {
+   
+} else {
+  dotenv.config({ path: '.env.development' });
+  app.use(morgan("dev"));
+}
+
 
 // Connect to database
 connectDB();
 
-// Route files in
 
+// Route files in
 require('./auth-strategy/google-passport')(passport)
 
 
-const app = express();
+//Google Auth Stragies
+const oauth = require("./routes/Auth-Strategies");
+
 
 // Body parser
 app.use(express.json());
