@@ -1,0 +1,18 @@
+[
+    {
+    "userId"  : "",
+    "prompt" "  "hello i want to sing",
+    "response " : "Alright go  ahead",  
+    "model"  : "gpt-4o",
+    "createdAt" : "",
+    "updatedAt" : ""
+ },
+    {
+    "userId"  : "",
+    "prompt" "  "hello i want to sing",
+    "response " : "Alright go  ahead",  
+    "model"  : "gpt-4o",
+    "createdAt" : "",
+    "updatedAt" : ""
+ },
+]

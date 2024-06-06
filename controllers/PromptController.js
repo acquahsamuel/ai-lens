@@ -7,8 +7,10 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEYS);
 // @desc      Generate SEO post description
 // @route     GET /api/v1/seo-description
 exports.generateSEODescription = asyncHandler(async (req, res, next) => {
+    const modelTypeInit = req.query.model || "gemini-1.5-flash";;
+    
     const message = req.body.prompt;
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const model = genAI.getGenerativeModel({ model: modelTypeInit });
   
     const prompt = message;
   

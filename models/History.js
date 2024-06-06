@@ -10,6 +10,7 @@ const HistorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  
   response: {
     type: String,
     required: true

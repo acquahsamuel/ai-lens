@@ -23,24 +23,13 @@ const UserSchema = new mongoose.Schema({
     ],
   },
 
-  /**
-   * Primary mobile number
-   */
+ 
   mobile: {
     type: String,
     trim: true,
     required: false,
   },
-
-  /**
-   * Secondary number
-   */
-  secondaryMobile: {
-    type: Number,
-    trim: true,
-    required: false,
-  },
-
+ 
   role: {
     type: String,
     enum: ["user", "business", "developer", "admin", "superadmin"],
@@ -58,8 +47,7 @@ const UserSchema = new mongoose.Schema({
 
   isActive: {
     type: Boolean,
-    default: true,
-    // default: false
+    default: false
   },
 
   accountType: {
@@ -69,25 +57,18 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 
+
   gender: {
     type: String,
   },
-
-  /**
-   * Review code integrate with extenral API
-   * Margins API, external KYC services
-   */
-  validIdNumber: {
-    // unique : true,
-    type: String,
-    min: 10,
-  },
-
+ 
   interests: [{ type: String }],
+
 
   authenticationProvider: {
     type: String,
   },
+
 
   authenticationProviderId: {
     type: String,
@@ -125,24 +106,11 @@ const UserSchema = new mongoose.Schema({
     select: false,
   },
 
-  businessConfigured: {
-    type: Boolean,
-    default: false,
-  },
-
-  phoneActivated: {
-    type: Boolean,
-    default: false,
-  },
 
   dateOfBirth: {
     type: Date,
   },
 
-  userVerifiedById: {
-    type: Boolean,
-    default: false,
-  },
 
   userSubdomain: {
     type: String,
@@ -187,29 +155,6 @@ UserSchema.post("save", async function (next) {
   this.referralCode = code;
 });
 
-
-// UserSchema.pre("save", async function (next) {
-//   if (this.isModified("name") || !this.userSubdomain) {
-//     let subdomain = this.name.replace(/\s+/g, "-").toLowerCase();
-//     subdomain = `${subdomain}-${generateRandomString(9)}`;
-//     let count = 1;
-//     while (await this.constructor.findOne({ userSubdomain: subdomain })) {
-//       subdomain = `${this.name.replace(/\s+/g, "-").toLowerCase()}-${count}`;
-//       count++;
-//     }
-//     this.userSubdomain = subdomain;
-//     this.trendaSubdomain =  `${process.env.FRONTEND_URL}/@${subdomain}`;
-//   }
-//   next();
-// });
-
-//Generate referal link
-
-// UserSchema.pre("save", function (next) {
-//   const linkPart = [this.name, this.referralCode].filter(Boolean).join("-");
-//   this.referralURL = linkPart.toLowerCase().replace(/\s+/g, "-");
-//   next();
-// });
 
 
 // Encrypt password using bcrypt

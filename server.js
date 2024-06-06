@@ -3,7 +3,6 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
-const ejs = require("ejs");
 const fileupload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
 const mongoSanitize = require("express-mongo-sanitize");
@@ -41,11 +40,8 @@ const auth = require("./routes/Auth");
 
 const user = require("./routes/UserRoute");
 const history = require("./routes/HistoryRoute");
-const notification = require("./routes/NotificationRoute");
 const prompt = require("./routes/PromptRoute");
- 
-
-
+const notification = require("./routes/NotificationRoute");
 
 
 // Body parser
@@ -71,12 +67,17 @@ app.use(helmet());
 // Prevent XSS attacks
 app.use(xss());
 
+
+
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
+  // 10 mins
+  windowMs: 10 * 60 * 1000, 
   max: 100,
 });
 app.use(limiter);
+
+
 
 // Prevent http param pollution
 app.use(hpp());
@@ -85,10 +86,10 @@ app.use(hpp());
 app.use(cors());
 
  
- 
 // Mount routers social logins
 app.use("/auth/google", oauth);
 app.use("/api/v1/prompt", prompt);
+// app.use("/api/v1/user", auth);
 
 app.use("/api/v1/auth", auth);
 
