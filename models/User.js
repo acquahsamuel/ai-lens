@@ -4,9 +4,8 @@ const Schema = mongoose.Schema;
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const otpCode = require("otp-generator");
-const { generateRandomString } = require('../utils/helper-function');
+const { generateRandomString } = require("../utils/helper-function");
 const OPTLENGTH = 5;
-
 
 const UserSchema = new mongoose.Schema({
   name: {
@@ -24,7 +23,6 @@ const UserSchema = new mongoose.Schema({
     ],
   },
 
-
   /**
    * Primary mobile number
    */
@@ -34,8 +32,7 @@ const UserSchema = new mongoose.Schema({
     required: false,
   },
 
-
-   /**
+  /**
    * Secondary number
    */
   secondaryMobile: {
@@ -43,7 +40,6 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     required: false,
   },
-
 
   role: {
     type: String,
@@ -57,7 +53,7 @@ const UserSchema = new mongoose.Schema({
   },
 
   profileUrl: {
-    type: String
+    type: String,
   },
 
   isActive: {
@@ -73,69 +69,63 @@ const UserSchema = new mongoose.Schema({
     required: true,
   },
 
-
-  gender : {
-    type : String
+  gender: {
+    type: String,
   },
 
-  
   /**
    * Review code integrate with extenral API
    * Margins API, external KYC services
    */
-  validIdNumber :{
-    // unique : true, 
-    type : String,
-    min: 10
+  validIdNumber: {
+    // unique : true,
+    type: String,
+    min: 10,
   },
 
-
-  interests: [
-    { type: String }
-  ] ,
+  interests: [{ type: String }],
 
   authenticationProvider: {
     type: String,
   },
 
   authenticationProviderId: {
-    type : String
+    type: String,
   },
 
   referralCode: {
-    type : String
+    type: String,
   },
 
   referredBy: {
-    type : String
+    type: String,
   },
 
   referralURL: {
-    type : String
+    type: String,
   },
 
   resetPasswordToken: {
-    type : String
+    type: String,
   },
 
   resetPasswordExpire: {
-    type : Date
+    type: Date,
   },
 
+  bookmarks: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Bookmark",
+    },
+  ],
 
- 
-  bookmarks: [{
-     type: Schema.Types.ObjectId,
-      ref: "Bookmark" 
-  }],
-
-  
   password: {
     type: String,
     select: false,
   },
 
-  businessConfigured :{
+  businessConfigured: {
     type: Boolean,
     default: false,
   },
@@ -145,26 +135,25 @@ const UserSchema = new mongoose.Schema({
     default: false,
   },
 
-  dateOfBirth : {
-    type : Date  
+  dateOfBirth: {
+    type: Date,
   },
 
-  userVerifiedById :{
+  userVerifiedById: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
-  
-  userSubdomain : {
-    type : String
+  userSubdomain: {
+    type: String,
   },
 
-  trendaSubdomain : {
-    type : String
+  trendaSubdomain: {
+    type: String,
   },
 
-  location : {
-    type : String
+  location: {
+    type: String,
   },
 
   accountCreatedAt: {
@@ -182,13 +171,10 @@ const UserSchema = new mongoose.Schema({
     default: Date.now,
   },
 
-  deviceIpAddress : {
-    type : String
-  }
+  deviceIpAddress: {
+    type: String,
+  },
 });
-
-
-
 
 // Referral Code generation
 UserSchema.post("save", async function (next) {
@@ -202,8 +188,6 @@ UserSchema.post("save", async function (next) {
 });
 
 
-
- 
 // UserSchema.pre("save", async function (next) {
 //   if (this.isModified("name") || !this.userSubdomain) {
 //     let subdomain = this.name.replace(/\s+/g, "-").toLowerCase();
@@ -219,9 +203,6 @@ UserSchema.post("save", async function (next) {
 //   next();
 // });
 
-
-
-
 //Generate referal link
 
 // UserSchema.pre("save", function (next) {
@@ -229,7 +210,6 @@ UserSchema.post("save", async function (next) {
 //   this.referralURL = linkPart.toLowerCase().replace(/\s+/g, "-");
 //   next();
 // });
-
 
 
 // Encrypt password using bcrypt
@@ -274,5 +254,3 @@ UserSchema.methods.getResetPasswordToken = function () {
 };
 
 module.exports = mongoose.model("User", UserSchema);
-
-

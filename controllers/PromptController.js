@@ -23,22 +23,12 @@ exports.generateSEODescription = asyncHandler(async (req, res, next) => {
 });
 
 
+
+
 // @desc      Generate SEO post description
 // @route     GET /api/v1/seo-description
 exports.geminiGenerateImage = asyncHandler(async (req, res, next) => {
-    const message = req.body.prompt;
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-  
-    const prompt = message;
-  
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = await response.text();
-  
-    res.status(200).json({
-      success: true,
-      data: text,
-    });
+   
 });
 
 
