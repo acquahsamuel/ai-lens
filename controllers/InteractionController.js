@@ -1,107 +1,60 @@
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
 const asyncHandler = require('../middleware/async');
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEYS);
 const Interaction = require('../models/Interaction');
+const moment = require('moment');
+const {interactionPromptHandler} = require("../utils/helper-function");
 
 
 
-// @route     GET /api/v1/loggedin
-exports.initiatePrompt = asyncHandler(async (req, res, next) => {
-    const modelTypeInit = req.query.model || "gemini-1.5-flash";;
-    const message = req.body.prompt;
-    const model = genAI.getGenerativeModel({ model: modelTypeInit });
-  
-    const prompt = message;
-  
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = await response.text();
-  
+// @route     GET /api/v1/update-interaction
+exports.initiatePrompt = asyncHandler(interactionPromptHandler);
 
-    try {
-        // Create a new interaction instance
-        const interaction = new Interaction({
-            userId: req.user._id,
-            type: "text",
-            prompts: [{ prompt: message, response: text }],
-            model: modelTypeInit,
-        });
 
-        await interaction.save();
-        res.status(200).json({
-            success: true,
-            data: interaction,
-        });
+// @route     GET /api/v1/update-interaction
+exports.updateInteraction = asyncHandler(interactionPromptHandler);
 
-    } catch (err) {
-        // Handle any errors
-        console.error(err);
-        res.status(500).json({
-            success: false,
-            error: "Internal Server Error",
-        });
-    }
+
+// @route     GET /api/v1/get all interaction
+exports.getAllInteraction = asyncHandler(async (req, res, next) => {
+
+    const interaction = await Interaction.find().lean();
+    res.status(200).json({
+        success: true,
+        count : interaction.length,
+        data: interaction
+      });
 });
 
 
 
-// @route     GET /api/v1/update-interaction 
-exports.updateInteraction = asyncHandler(async (req, res, next) => {
-    const modelTypeInit = req.query.model || "gemini-1.5-flash";
-    // const userId = req.user._id;
+// @route     GET /api/v1/get all interaction
+exports.getInteractionById = asyncHandler(async (req, res, next) => {
+    console.log(req.params.promptId);
 
-    const message = req.body.prompt;
-    // const queryId = req.query.id;
-    // console.log(queryId, message, req.user);
-  
-    const model = genAI.getGenerativeModel({ model: modelTypeInit });
-    const prompt = message;
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = await response.text();
-  
-    try {
-      let interaction = await Interaction.findOne({ userId: req.user._id, model: modelTypeInit });
-      if (interaction) {
-        interaction.prompts.push({ prompt: message, response: text });
-     
-    } else {
-
-        interaction = new Interaction({
-          userId: req.user._id,  
-          type: "text", 
-          prompts: [{ prompt: message, response: text }],
-          model: modelTypeInit,
-        });
-      }
-  
-   
-      await interaction.save();
-  
-      res.status(200).json({
-        success: true,
-        data: interaction,
-      });
-
-    } catch (err) {
-   
-      console.error(err);
-      res.status(500).json({
-        success: false,
-        error: "Internal Server Error",
-      });
-    }
-  });
- 
-
-
-  // @desc      Generate SEO post description
-// @route     GET /api/v1/seo-description
-exports.getAllInteraction = asyncHandler(async (req, res, next) => {
-    const interaction = await Interaction.find().lean();
+    const interaction = await Interaction.findById(req.params.promptId);
     res.status(200).json({
         success: true,
+        count : interaction.length,
         data: interaction
+      });
+});
+
+
+
+
+exports.getAllInteractionPrompt = asyncHandler(async (req, res, next) => {
+    const interaction = await Interaction.find().lean();
+     const prompts = interaction.flatMap(interactionItem => 
+        interactionItem.prompts.map(promptItem => ({
+            _id: promptItem._id,
+            prompt: promptItem.prompt
+        }))
+    );
+
+
+    res.status(200).json({
+        success: true,
+        count : interaction.length,
+        data: prompts
       });
 });

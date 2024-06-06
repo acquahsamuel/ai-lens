@@ -91,7 +91,7 @@ app.use("/auth/google", oauth);
 app.use("/api/v1/auth", auth);
 
 
-app.use("/api/v1/prompt", prompt);
+app.use("/api/v1/interaction", prompt);
 
 
 // app.use(errorHandler);
